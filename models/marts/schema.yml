@@ -1,0 +1,122 @@
+version: 2
+
+models:
+  - name: fct_orders
+    description: "One row per order — revenue, delivery metrics, and return flag"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: order_status
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Complete', 'Cancelled', 'Returned', 'Processing', 'Shipped']
+      - name: order_revenue
+        tests:
+          - not_null
+      - name: is_returned
+        tests:
+          - not_null
+
+  - name: fct_order_items
+    description: "One row per order item — product detail, pricing, and margin"
+    columns:
+      - name: order_item_id
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fct_orders')
+                field: order_id
+      - name: user_id
+        tests:
+          - not_null
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_id
+      - name: sale_price
+        tests:
+          - not_null
+      - name: gross_profit
+        tests:
+          - not_null
+
+  - name: fct_funnel
+    description: "One row per session — funnel stage progression and conversion flag"
+    columns:
+      - name: session_id
+        tests:
+          - unique
+          - not_null
+      - name: session_start_at
+        tests:
+          - not_null
+      - name: converted
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1]
+                quote: false
+      - name: max_funnel_stage
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [0, 1, 2, 3, 4, 5]
+                quote: false
+
+  - name: dim_users
+    description: "One row per user — demographics, order history, and customer segments"
+    columns:
+      - name: user_id
+        tests:
+          - unique
+          - not_null
+      - name: customer_segment
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['never_purchased', 'one_time', 'repeat', 'loyal']
+      - name: return_segment
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['no_returns', 'high_returner', 'low_returner']
+
+  - name: dim_products
+    description: "One row per product — pricing, inventory summary, and velocity segment"
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+      - name: inventory_segment
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['high_velocity', 'mid_velocity', 'low_velocity', 'slow_mover']
+
+  - name: dim_distribution_centers
+    description: "One row per distribution center — name and coordinates"
+    columns:
+      - name: dc_id
+        tests:
+          - unique
+          - not_null
+      - name: dc_name
+        tests:
+          - not_null
