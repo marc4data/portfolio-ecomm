@@ -20,7 +20,7 @@ sources:
               - not_null
               - accepted_values:
                   arguments: 
-                    values: ['complete', 'cancelled', 'returned', 'processing', 'shipped']
+                    values: ['Complete', 'Cancelled', 'Returned', 'Processing', 'Shipped', 'Product',]
 
       - name: order_items
         columns:
@@ -33,14 +33,14 @@ sources:
               - not_null
               - relationships:
                   arguments:
-                    to: source('thelook_ecommerce', 'orders')
+                    to: source('thelook', 'orders')
                     field: order_id
           - name: product_id
             tests:
               - not_null
               - relationships:
                   arguments:
-                    to: source('thelook_ecommerce', 'products')
+                    to: source('thelook', 'products')
                     field: id
 
       - name: users
@@ -68,7 +68,7 @@ sources:
               - not_null
               - relationships:
                   arguments:
-                    to: source('thelook_ecommerce', 'products')
+                    to: source('thelook', 'products')
                     field: id
 
       - name: events
@@ -78,8 +78,6 @@ sources:
               - unique
               - not_null
           - name: user_id
-            tests:
-              - not_null
           - name: event_type
             tests:
               - not_null
