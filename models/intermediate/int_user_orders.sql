@@ -40,12 +40,12 @@ joined as (
         users.traffic_source,
         users.created_at                as user_created_at,
 
-        order_summary.lifetime_order_cnt,
-        order_summary.lifetime_item_cnt,
+        ifnull(order_summary.lifetime_order_cnt, 0) as lifetime_order_cnt,
+        ifnull(order_summary.lifetime_item_cnt, 0) as lifetime_item_cnt,
         order_summary.first_order_at,
         order_summary.most_recent_order_at,
-        order_summary.total_return_cnt,
-        order_summary.total_complete_cnt
+        ifnull(order_summary.total_return_cnt, 0) as total_return_cnt,
+        ifnull(order_summary.total_complete_cnt, 0) as total_complete_cnt
 
     from users
     left join order_summary

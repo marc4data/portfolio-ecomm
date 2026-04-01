@@ -41,11 +41,10 @@ joined as (
         inventory_summary.units_available,
         inventory_summary.avg_cost,
         inventory_summary.first_stocked_at,
-
         round(
-            safe_divide(inventory_summary.units_sold, inventory_summary.total_inventory_items) * 100,
-            2
-        )                               as sell_through_rate
+                safe_divide(inventory_summary.units_sold, inventory_summary.total_inventory_items) * 100,
+                2
+                )                       as sell_through_rate
 
     from products
     left join inventory_summary
