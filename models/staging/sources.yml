@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: thelook
-    database: bigquery-public-data
-    schema: thelook_ecommerce
+    database: portfolio-thelook
+    schema: thelook_raw
     description: "TheLook eCommerce public dataset — fictional online clothing retailer"
     tables:
       - name: orders
