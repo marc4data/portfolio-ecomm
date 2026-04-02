@@ -5,3 +5,4 @@ logs/
 .env
 *.json
 .DS_Store
+dbt_internal_packages/
