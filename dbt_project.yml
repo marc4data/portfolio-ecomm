@@ -14,6 +14,9 @@ clean-targets:
   - "target"
   - "dbt_packages"
 
+tests:
+  +store_failures: false
+
 models:
   portfolio_ecomm:
     staging:
