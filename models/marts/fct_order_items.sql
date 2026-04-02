@@ -25,10 +25,6 @@ final as (
         order_items.shipped_at,
         order_items.delivered_at,
 
-        products.product_name,
-        products.category,
-        products.brand,
-        products.department,
         products.retail_price,
         products.cost,
 
