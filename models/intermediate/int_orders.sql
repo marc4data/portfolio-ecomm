@@ -80,12 +80,12 @@ final as (
         timestamp_diff(orders.shipped_at, orders.created_at, day)       as days_to_ship,
 
         case
-            when orders.order_status = 'Returned' then 1
-            when orders.order_status != 'Cancelled' then 0
+            when lower(orders.order_status) = 'returned' then 1
+            when lower(orders.order_status) != 'cancelled' then 0
             else null
         end                                                              as returned_ind,
         case
-            when orders.order_status = 'Complete' then 1
+            when lower(orders.order_status) = 'complete' then 1
             else 0 
         end                                                              as completed_ind,
 
