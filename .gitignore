@@ -4,5 +4,9 @@ dbt_packages/
 logs/
 .env
 *.json
+!credentials/credentials_template.json
 .DS_Store
+outputs/
 dbt_internal_packages/
+__pycache__/
+*.pyc

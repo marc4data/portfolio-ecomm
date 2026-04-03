@@ -9,6 +9,7 @@ session_summary as (
     select
         session_id,
         user_id,
+        max(traffic_source)                                     as traffic_source,
         min(event_at)                                           as session_start_at,
         max(event_at)                                           as session_end_at,
         count(*)                                                as total_events,

@@ -9,6 +9,7 @@ funnel as (
     select
         session_id,
         user_id,
+        traffic_source,
         created_at                                              as event_at,
         event_type,
 
