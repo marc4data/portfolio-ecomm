@@ -1,6 +1,16 @@
 version: 2
 
 models:
+  - name: fct_inventory_xact
+    description: "One row per item received into inventory.  Record is retained when it is sold."
+    columns:
+      name: inventoryj_item_id 
+      tests:
+        - not_null
+        - unique
+      name: product_id
+      tests:
+        - not_null
   - name: fct_orders
     description: "One row per order — revenue, delivery metrics, and return flag"
     columns:
