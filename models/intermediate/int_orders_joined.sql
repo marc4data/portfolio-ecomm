@@ -16,8 +16,6 @@ joined as (
         orders.order_id,
         orders.user_id,
         orders.order_status,
-        orders.gender,
-        orders.line_item_cnt,
         orders.created_at,
         orders.returned_at,
         orders.shipped_at,

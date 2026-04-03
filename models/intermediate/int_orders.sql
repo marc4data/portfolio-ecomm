@@ -1,0 +1,79 @@
+with orders as (
+
+    select * from {{ ref('stg_thelook__orders') }}
+
+),
+
+order_items as (
+
+    select * from {{ ref('stg_thelook__order_items') }}
+
+),
+
+inventory_items as (
+
+    select * from {{ ref('stg_thelook__inventory_items') }}
+
+),
+
+order_items_summary as (
+
+    select 
+        order_items.order_id,
+
+        -- metrics
+        sum(order_items.sale_price)                                 as revenue_amt,
+        sum(inventory_items.cost)                                   as cost_amt,
+        sum(order_items.sale_price - inventory_items.cost)          as margin_amt,
+    
+    from orders
+    left join order_items on orders.order_id = order_items.order_id
+    left join inventory_items 
+        on order_items.inventory_item_id = inventory_items.inventory_item_id
+    where orders.order_status = 'Complete'
+    group by
+        order_items.order_id
+
+),
+
+final as (
+
+    select
+        -- keys
+        orders.order_id,
+        orders.user_id,
+
+        -- dimensions
+        orders.order_status,
+        
+        --metrics
+        orders.line_item_cnt,
+        order_items_summary.revenue_amt,
+        order_items_summary.cost_amt,
+        order_items_summary.margin_amt,
+
+        -- derived metrics
+        timestamp_diff(orders.delivered_at, orders.created_at, day)     as days_to_deliver,
+        timestamp_diff(orders.shipped_at, orders.created_at, day)       as days_to_ship,
+
+        case
+            when orders.order_status = 'returned' then 1
+            when orders.order_status != 'cancelled' then 0
+            else null
+        end                                                              as returned_ind,
+        case
+            when orders.order_status = 'complete' then 1
+            else 0 
+        end                                                              as completed_ind,
+
+        -- timestamps
+        orders.created_at,
+        orders.returned_at,
+        orders.shipped_at,
+        orders.delivered_at,
+
+    from orders
+    left join order_items_summary on orders.order_id = order_items_summary.order_id
+)
+
+select * from final
