@@ -70,7 +70,9 @@ sources:
                   arguments:
                     to: source('thelook', 'products')
                     field: id
-
+          - name: product_distribution_center_id
+            tests:
+              - not_null
       - name: events
         columns:
           - name: id

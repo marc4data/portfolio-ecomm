@@ -20,7 +20,7 @@ renamed as (
         product_retail_price,
         product_department,
         product_sku,
-        product_distribution_center_id
+        product_distribution_center_id          as dc_id
 
     from source
 

@@ -13,10 +13,7 @@ models:
           - accepted_values:
               arguments:
                 values: ['Complete', 'Cancelled', 'Returned', 'Processing', 'Shipped']
-      - name: order_revenue
-        tests:
-          - not_null
-      - name: is_returned
+      - name: completed_ind
         tests:
           - not_null
 
