@@ -1,17 +1,6 @@
 with orders as (
 
-    select * from {{ ref('int_orders_joined') }}
-
-),
-
-order_revenue as (
-
-    select
-        order_id,
-        sum(sale_price) as order_revenue
-
-    from orders
-    group by order_id
+    select * from {{ ref('int_orders') }}
 
 ),
 
@@ -21,26 +10,34 @@ final as (
         orders.order_id,
         orders.user_id,
         orders.order_status,
-        orders.gender,
+        orders.cx_order_seq,
+        case
+            when orders.cx_order_seq > 1 then 'Repeat'
+            when orders.cx_order_seq = 0 then 'First' 
+            else 'n/a'
+        end as cx_order_type,
         orders.line_item_cnt,
+        
+        --metrics
+        orders.revenue_amt,
+        orders.cost_amt,
+        orders.margin_amt,
+        
+        orders.cx_running_revenue_amt,
+        orders.cx_running_cost_amt,
+        orders.cx_running_margin_amt,
+
+        orders.days_to_deliver,
+        orders.days_to_ship,
+        orders.returned_ind,
+        orders.completed_ind,
+
         orders.created_at,
         orders.returned_at,
         orders.shipped_at,
-        orders.delivered_at,
-
-        order_revenue.order_revenue,
-
-        -- derived metrics
-        timestamp_diff(orders.delivered_at, orders.created_at, day)     as days_to_deliver,
-        timestamp_diff(orders.shipped_at, orders.created_at, day)       as days_to_ship,
-
-        case
-            when orders.order_status = 'returned' then true
-            else false
-        end                                                              as is_returned
+        orders.delivered_at
 
     from orders
-    left join order_revenue using (order_id)
 
 )
 

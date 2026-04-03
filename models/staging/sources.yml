@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: thelook
-    database: bigquery-public-data
-    schema: thelook_ecommerce
+    database: portfolio-thelook
+    schema: thelook_raw
     description: "TheLook eCommerce public dataset — fictional online clothing retailer"
     tables:
       - name: orders
@@ -70,7 +70,9 @@ sources:
                   arguments:
                     to: source('thelook', 'products')
                     field: id
-
+          - name: product_distribution_center_id
+            tests:
+              - not_null
       - name: events
         columns:
           - name: id
