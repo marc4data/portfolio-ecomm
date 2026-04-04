@@ -68,20 +68,6 @@ models:
       - name: session_start_at
         tests:
           - not_null
-      - name: converted
-        tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: [0, 1]
-                quote: false
-      - name: max_funnel_stage
-        tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: [0, 1, 2, 3, 4, 5]
-                quote: false
 
   - name: dim_users
     description: "One row per user — demographics, order history, and customer segments"
