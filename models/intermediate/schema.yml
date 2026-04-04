@@ -69,26 +69,10 @@ models:
           - unique
           - not_null
 
-  - name: int_funnel_events
-    description: "Events with funnel stage assignments and session conversion flag"
+  - name: int_funnel
+    description: "Accumulated snapshot at the grain = session_id"
     columns:
       - name: session_id
         tests:
+          - unique
           - not_null
-      - name: event_at
-        tests:
-          - not_null
-      - name: funnel_stage
-        tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: [0, 1, 2, 3, 4, 5]
-                quote: false
-      - name: session_converted
-        tests:
-          - not_null
-          - accepted_values:
-              arguments:
-                values: [0, 1]
-                quote: false
