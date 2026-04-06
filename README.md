@@ -10,7 +10,7 @@ for ad-hoc analysis and executive-level reporting.
 
 ## Dashboard & Key Findings
 
-![TheLook eCommerce Dashboard](outputs/images/dashboard_main.jpg)
+![TheLook eCommerce Dashboard](assets/images/dashboard_main.jpg)
 
 ### March 2026 Growth Spike (~50% MoM)
 - Revenue and order volume both jumped ~50% in March 2026 — the largest single-month increase in the dataset
