@@ -3,3 +3,5 @@ matplotlib
 seaborn
 google-cloud-bigquery
 db-dtypes
+anthropic
+python-dotenv

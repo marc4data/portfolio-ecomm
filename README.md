@@ -4,7 +4,7 @@ An end-to-end analytics engineering project built on Google BigQuery's public
 [TheLook eCommerce](https://console.cloud.google.com/marketplace/product/bigquery-public-data/thelook-ecommerce)
 dataset. The project demonstrates a production-style dbt pipeline — staging,
 intermediate, and mart layers with schema tests — alongside Python notebooks
-for ad-hoc analysis and executive-level reporting.
+for ad-hoc analysis and AI-generated executive reporting via the Claude API.
 
 ---
 
@@ -38,6 +38,7 @@ for ad-hoc analysis and executive-level reporting.
 | Transformation | dbt (Core) |
 | Analysis & visualization | Python — pandas, matplotlib, seaborn |
 | BQ client | google-cloud-bigquery |
+| AI / LLM | Anthropic Claude API (claude-haiku-4-5) |
 | Version control | Git / GitHub |
 
 ---
@@ -168,6 +169,33 @@ Charts use a consistent colour scheme: **orange** for the highlight month,
 
 Automated EDA across all mart tables — row counts, column distributions, null
 rates, and sample data. Useful for onboarding and data quality review.
+
+### `executive_summary.ipynb` ✦ AI Feature
+
+Queries `fct_orders`, `fct_funnel`, and `dim_users` for the most recent
+complete month's KPIs, compares them to the prior three-month average, and
+calls the **Claude API** to generate a plain-English executive summary in
+three paragraphs: top-line performance, growth drivers, and risks to watch.
+
+The generated summary is saved to
+[`assets/sample_output/executive_summary_latest.md`](assets/sample_output/executive_summary_latest.md).
+
+**Sample output — March 2026:**
+
+> March delivered exceptional top-line growth, with revenue reaching $204,278,
+> up 89.8% against the prior three-month average, and orders climbing 88.2% to
+> 2,354 units. This near-doubling of volume was achieved while holding average
+> order value relatively flat at $86.78 … Gross margin remained stable at
+> 51.2%, indicating we successfully scaled operations without material pressure
+> on profitability.
+>
+> The surge in performance was fueled by a balanced contribution across new and
+> repeat customer segments … Email emerged as the dominant channel by volume
+> with 8,620 sessions and a robust 69.5% conversion rate …
+>
+> Two areas merit closer investigation. First, the zero return rate in March
+> appears anomalous and should be validated … Second, organic traffic remains
+> disproportionately small at less than 8% of total sessions …
 
 ### `export_marts_to_excel.ipynb`
 
