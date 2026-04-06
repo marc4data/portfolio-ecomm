@@ -8,6 +8,28 @@ for ad-hoc analysis and executive-level reporting.
 
 ---
 
+## Dashboard & Key Findings
+
+![TheLook eCommerce Dashboard](outputs/images/dashboard_main.jpg)
+
+### March 2026 Growth Spike (~50% MoM)
+- Revenue and order volume both jumped ~50% in March 2026 — the largest single-month increase in the dataset
+- The driver was a surge in session volume across the top three traffic sources (Email, Adwords, Facebook), not a change in conversion rate or AOV
+- Growth was led by **new customer acquisition**, not repeat buyers — suggesting the spike reflects successful top-of-funnel campaign activity
+- AOV held flat (~$80) and return rate remained stable (~10%), confirming this is genuine demand growth rather than a data artefact or pricing change
+
+### Inventory Health Paradox
+- Total inventory across distribution centers is **$14M** with an average item age of **730 days**
+- However, all inventory units that are actively moving out of DCs are **under 60 days old** — a healthy turnover profile for the active SKU base
+- The long-tail SKUs that aren't moving have been sitting for **several years**, creating significant dead-stock carrying cost
+- This points to a classic **bi-modal inventory problem**: a fast-moving core buried inside a much larger pool of stagnant stock
+
+### Distribution Center Consolidation Case
+- Each DC holds roughly **$1M in inventory**, but the majority of that value is tied up in slow-moving or non-moving units
+- The data supports a case for **right-sizing toward fewer, faster-turning facilities** focused on the active SKU base, rather than maintaining full inventory depth across all locations
+
+---
+
 ## Tech Stack
 
 | Layer | Tool |
@@ -251,5 +273,5 @@ denominator.
 
 ## Author
 
-**Alex (Marc Alexander)** — Senior BI Developer / Analytics Engineer  
+**Marc Alexander** — Senior, Leader, and Mentor in Business Intelligence and Analytics Engineering.
 Specialising in cloud data platforms, dbt, and executive analytics.
